@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Caveat:wght@500&family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,500&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--paper:#e9ece6;--sheet:#fafaf6;--ink:#23282a;--mute:#6b746e;--line:#cdd3ca;--band:#dde4da;--accent:#4d6a59;--pen:#26364a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--paper:#121614;--sheet:#1b201e;--ink:#e5eae5;--mute:#93a097;--line:#343c38;--band:#252d29;--accent:#9dbba9;--pen:#bfd3ea}}
+:root[data-theme="dark"]{color-scheme:dark;--paper:#121614;--sheet:#1b201e;--ink:#e5eae5;--mute:#93a097;--line:#343c38;--band:#252d29;--accent:#9dbba9;--pen:#bfd3ea}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;line-height:1.4}
+header{max-width:1080px;margin:0 auto;padding:22px 18px 8px;display:flex;flex-wrap:wrap;gap:10px 24px;align-items:baseline;justify-content:space-between}
+header h1{font-size:30px;font-weight:600;font-style:italic;margin:0;letter-spacing:.01em}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{color:var(--mute);text-decoration:none;padding:6px 12px;border-radius:999px;font-size:18px}
+nav a:hover{color:var(--ink)}
+nav a[aria-current="page"]{background:var(--ink);color:var(--sheet)}
+nav a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+main{max-width:1080px;margin:0 auto;padding:10px 12px 60px}
+.page{display:none}.page.on{display:block}
+.book{background:var(--sheet);border:1px solid var(--line);border-radius:6px;box-shadow:0 10px 30px rgba(20,30,25,.08);display:grid;grid-template-columns:1fr;position:relative}
+.leaf{padding:26px 22px 30px}
+@media(min-width:860px){.book.two{grid-template-columns:1fr 1fr}.book.two::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(90deg,var(--line),transparent)}.leaf{padding:34px 34px 38px}}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:14px}
+.day{font-size:15px;color:var(--mute);font-style:italic}
+.top input[type=date]{font:inherit;font-size:24px;font-weight:600;background:none;border:0;color:var(--ink);padding:0;border-bottom:1px solid var(--line)}
+.top button{font:inherit;background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;width:32px;height:32px;cursor:pointer}
+.band{background:var(--band);border-radius:4px;padding:10px 14px;margin:6px 0 18px}
+.band .lab{margin:0 0 2px}
+h2{font-size:30px;font-weight:600;font-style:italic;margin:0 0 6px}
+h2.cap{font-style:normal;font-weight:500;text-transform:uppercase;letter-spacing:.03em;text-align:center;font-size:36px;line-height:1.05;margin:4px 0 14px}
+h2.cap i{font-weight:500}
+.qb{border:1px solid var(--line);background:var(--band);border-radius:3px;padding:8px 12px 10px;margin:14px 0}
+.qb .lab{margin:0 0 4px;color:var(--ink)}
+.eg{background:var(--band);border-left:3px solid var(--mute);padding:8px 14px;margin:10px 0;font-size:16px;font-style:italic}
+#remind{max-width:1080px;margin:0 auto;padding:4px 18px 8px;display:flex;flex-wrap:wrap;gap:8px}
+#remind button{font:inherit;background:var(--ink);color:var(--sheet);border:0;border-radius:999px;padding:6px 16px;cursor:pointer}
+#remind[hidden]{display:none}
+.howto p{margin:6px 0 10px}.howto ol,.howto ul{padding-left:20px;margin:6px 0}.howto li{margin-bottom:8px}
+h3{font-size:19px;font-weight:600;margin:22px 0 2px}
+.sub{color:var(--mute);font-size:15px;font-style:italic;margin:0 0 8px}
+.lab{font-size:14px;color:var(--mute);font-style:italic;margin:12px 0 0;line-height:1.25}
+.lab b{display:block;font-weight:600;font-style:normal;color:var(--ink);font-size:15px}
+input[type=text],textarea{width:100%;font-family:"Caveat",cursive;font-size:23px;color:var(--pen);background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:2px 0;line-height:32px;resize:none;overflow:hidden;display:block}
+textarea{background-image:linear-gradient(transparent 31px,var(--line) 31px);background-size:100% 32px;border-bottom:0;padding:0}
+input[type=text]:focus,textarea:focus{outline:0;border-color:var(--accent)}
+input::placeholder,textarea::placeholder{color:var(--mute);opacity:.45}
+.win{margin-bottom:6px}
+.win .row{display:flex;gap:10px;align-items:flex-end}
+.win .row .n{font-size:22px;color:var(--mute);font-style:italic;width:16px;flex:none;line-height:36px}
+input[type=checkbox]{appearance:none;width:18px;height:18px;border:1.5px solid var(--mute);border-radius:3px;margin:0 0 9px;flex:none;cursor:pointer;display:grid;place-content:center;background:none}
+input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
+input[type=checkbox]:checked::after{content:"";width:9px;height:5px;border:2px solid var(--sheet);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.row .big{font-size:27px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;margin-left:44px}
+.tag{font-size:13px;color:var(--accent);font-style:italic;margin:4px 0 0 44px}
+.box{border:1px solid var(--line);border-radius:4px;padding:6px 14px 12px;margin:18px 0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin:16px 0}
+.cols>div{border:1px solid var(--line);border-radius:4px;padding:2px 12px 12px}
+.cols>div:last-child{background:var(--band)}
+.notes{background:var(--band);margin:22px -22px -30px;padding:8px 22px 24px;border-radius:0 0 6px 6px}
+@media(min-width:860px){.notes{margin:22px -34px -38px;padding:8px 34px 28px}}
+.foot{text-align:center;color:var(--mute);font-style:italic;font-size:15px;margin-top:18px}
+.proof{display:flex;gap:10px}
+.proof .n{color:var(--mute);font-size:18px;font-style:italic;line-height:40px;width:16px;flex:none}
+.proof>div{flex:1;margin-bottom:12px}
+.proof input{font-size:30px}
+.mile{display:grid;grid-template-columns:1fr;gap:14px;margin-top:10px}
+@media(min-width:560px){.mile{grid-template-columns:1fr 1fr}}
+.mile>div{border:1px solid var(--line);border-radius:4px;padding:2px 12px 12px}
+.mile>div.w{grid-column:1/-1}
+#saved{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--sheet);font-size:15px;padding:4px 14px;border-radius:999px;opacity:0;transition:opacity .25s;pointer-events:none}
+#saved.show{opacity:.9}
+@media(prefers-reduced-motion:reduce){#saved{transition:none}}
+/* skin */
+:root{--paper:#d9dbe4;--glow:rgba(255,255,255,.7);--sheet:#fbfbfd;--ink:#2b2836;--mute:#7a7685;--line:#d6d3df;--band:#ece9f1;--accent:#a98649;--pen:#2a3550}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#15141b;--glow:rgba(255,255,255,.04);--sheet:#1e1c26;--ink:#ece9f2;--mute:#9a96a6;--line:#383545;--band:#292633;--accent:#cdae73;--pen:#c6d3ee}}
+:root[data-theme="dark"]{--paper:#15141b;--glow:rgba(255,255,255,.04);--sheet:#1e1c26;--ink:#ece9f2;--mute:#9a96a6;--line:#383545;--band:#292633;--accent:#cdae73;--pen:#c6d3ee}
+body{background:radial-gradient(ellipse at 15% 8%,var(--glow),transparent 55%),radial-gradient(ellipse at 88% 72%,var(--glow),transparent 50%),linear-gradient(115deg,transparent 40%,rgba(110,110,150,.09) 41%,transparent 42.4%),linear-gradient(63deg,transparent 58%,rgba(110,110,150,.07) 59%,transparent 60.2%),var(--paper);background-attachment:fixed}
+header{flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px 18px 8px;gap:12px}
+header h1{font-family:'Bodoni Moda','Cormorant Garamond',serif;font-style:normal;font-weight:500;font-size:clamp(30px,6.5vw,48px);letter-spacing:.01em;line-height:1.05}
+header h1 i{font-style:italic}
+.cover p{margin:6px 0 10px;color:var(--mute);font-style:italic}
+.bar{width:min(300px,70vw);height:2px;background:var(--line);margin:0 auto;border-radius:2px}
+.bar span{display:block;height:100%;width:0;background:var(--accent);border-radius:2px;transition:width .6s}
+nav{justify-content:center;padding:4px;border:1px solid var(--line);border-radius:24px;background:color-mix(in srgb,var(--sheet) 65%,transparent);backdrop-filter:blur(6px)}
+.book{border:0;border-radius:3px 12px 12px 3px;background:var(--sheet) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .33 0 0 0 0 .45 0 0 0 .07 0'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");box-shadow:2px 2px 0 -1px var(--sheet),2px 2px 0 0 var(--line),5px 5px 0 -1px var(--sheet),5px 5px 0 0 var(--line),0 34px 50px -22px rgba(35,28,60,.38)}
+.book.two::after{width:60px;left:calc(50% - 30px);background:linear-gradient(90deg,transparent,rgba(45,35,80,.09) 44%,rgba(45,35,80,.17) 50%,rgba(255,255,255,.28) 52%,transparent)}
+h2{font-family:'Bodoni Moda','Cormorant Garamond',serif;font-weight:500;font-size:31px}
+h2.cap{font-size:30px;letter-spacing:.06em}
+h2::after{content:"";display:block;width:46px;height:1px;background:var(--accent);margin:10px 0 6px}
+h2.cap::after{margin:10px auto 6px}
+.band{border-left:2px solid var(--accent);border-radius:2px 8px 8px 2px}
+.box,.qb,.cols>div,.mile>div{border-radius:10px;border-color:var(--line)}
+.box{background:color-mix(in srgb,var(--band) 50%,transparent)}
+.notes{border-radius:0 0 12px 3px}
+.page.on{animation:pg .45s ease}
+@keyframes pg{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+#remind{justify-content:center;padding:0 18px 14px}
+#remind button{display:inline-flex;gap:8px;padding:9px 18px;font-size:17px;font-family:inherit}
+#remind button::before{content:"✦";color:var(--accent)}
+@media(prefers-reduced-motion:reduce){.page.on{animation:none}.bar span{transition:none}}
+</style>
+</head>
+<body>
+<header>
+<div class="cover"><h1>The Daily <i>Journal</i></h1><p id="prog">Day 001 of 150</p><div class="bar"><span id="barf"></span></div></div>
+<nav id="nav">
+<a href="#howto">How to use</a><a href="#energy">Energy profile</a><a href="#obsessions">My obsessions</a><a href="#dayone">Day one</a><a href="#daily">Daily</a><a href="#weekly">Weekly review</a><a href="#monthly">Monthly identity</a><a href="#proof">Portfolio of proof</a>
+</nav>
+</header>
+<div id="remind" role="status" hidden></div>
+<main>
+<section class="page" id="p-daily"></section>
+<section class="page" id="p-howto"></section>
+<section class="page" id="p-dayone"></section>
+<section class="page" id="p-weekly"></section>
+<section class="page" id="p-monthly"></section>
+<section class="page" id="p-energy"></section>
+<section class="page" id="p-obsessions"></section>
+<section class="page" id="p-proof"></section>
+</main>
+<div id="saved" role="status">Saved</div>
+<script>
+(function(){
+var mem={},LS=null;
+try{localStorage.setItem("jt","1");localStorage.removeItem("jt");LS=localStorage}catch(e){}
+var KEY="daily-journal-v1",data={};
+try{data=JSON.parse((LS?LS.getItem(KEY):mem[KEY])||"{}")||{}}catch(e){data={}}
+function persist(){var s=JSON.stringify(data);try{if(LS)LS.setItem(KEY,s);else mem[KEY]=s}catch(e){}}
+function iso(d){var m=d.getMonth()+1,x=d.getDate();return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(x<10?"0":"")+x}
+var today=iso(new Date()),cur=today;
+function st(){return data._start||today}
+
+var T=function(k,rows,d,ph){return '<textarea data-k="'+k+'"'+(d?' data-d':'')+' rows="'+rows+'" spellcheck="false" placeholder="'+(ph||'')+'"></textarea>'};
+var I=function(k,d,ph,c){return '<input type="text" data-k="'+k+'"'+(d?' data-d':'')+' placeholder="'+(ph||'')+'"'+(c?' class="'+c+'"':'')+' autocomplete="off">'};
+var L=function(t,s){return '<div class="lab">'+(s?'<b>'+t+'</b>'+s:t)+'</div>'};
+var win=function(n,tag,q1,q2,tagline){return '<div class="win"><div class="row"><input type="checkbox" data-k="w'+n+'.done" data-d aria-label="Win '+n+' done"><span class="n">'+n+'</span>'+I("w"+n+".t",1,"","big")+'</div><div class="tag">'+tagline+'</div><div class="pair"><div>'+L(q1)+I("w"+n+".a",1)+'</div><div>'+L("Reward for following through")+I("w"+n+".r",1)+'</div></div></div>'};
+
+document.getElementById("p-daily").innerHTML=
+'<div class="book two"><div class="leaf">'+
+'<div class="top"><span class="day" id="dayn"></span><button id="prev" aria-label="Previous day">‹</button><input type="date" id="dt" aria-label="Date"><button id="next" aria-label="Next day">›</button></div>'+
+'<div class="band"><div class="lab">Today’s signal</div>'+I("signal",1,"One line to carry through the day")+'</div>'+
+'<h3>Three wins</h3><p class="sub">Priority order, hardest first. Does each win move your obsession forward, or just feel productive?</p>'+
+win(1,"","What am I afraid of?","","Non-negotiable, hardest one")+
+win(2,"","What pulls me away?","","High impact task")+
+win(3,"","What would make this easier?","","Moves me forward")+
+'<div class="box"><h3 style="margin-top:8px">Task primer: win 1</h3><p class="sub">90 minutes to complete win 1 and nothing else. What could I cut, simplify, or stop overthinking right now?</p>'+T("primer",4,1)+'</div>'+
+'<h3>Tomorrow’s performance</h3><p class="sub">What investments will I make today, in my rest, my body, my boundaries, my mind, that protect the quality of tomorrow’s output?</p>'+T("tomorrow",4,1)+
+'</div><div class="leaf">'+
+'<h3 style="margin-top:0">Resistance</h3><p class="sub">What feeling am I avoiding by staying busy in my comfort zone, and what does my highest potential ask of me instead?</p>'+T("resist",5,1)+
+'<div class="cols"><div>'+L("The limiting story I’m telling myself")+T("limit",4,1)+'</div><div>'+L("The story that serves my highest self")+T("serve",4,1)+'</div></div>'+
+'<h3>Flow</h3><p class="sub">What’s one thing from yesterday that proves I am becoming who I set out to be? How can I carry that into today?</p>'+T("flow",6,1)+
+'<div class="notes">'+L("Notes")+T("notes",3,1)+'</div>'+
+'<div class="foot">Today is another chance to close the gap.</div></div></div>';
+
+var QB=function(k,t,r){return '<div class="qb">'+L(t)+T(k,r,0)+'</div>'};
+var Q=function(k,t,s,r){return '<h3>'+t+'</h3>'+(s?'<p class="sub">'+s+'</p>':'')+T(k,r||4,0)};
+document.getElementById("p-energy").innerHTML='<div class="book"><div class="leaf"><h2 class="cap">Energy <i>profile</i></h2><p class="sub">Your energy is your most important productivity asset. Before you plan a single win, understand when you work best, what drains you and what protects your output. Complete this once, before your first entry.</p>'+
+QB("e1","When am I at my sharpest and what conditions make that possible? Think environment, sleep, food and movement.",5)+
+QB("e2","What drains my energy the fastest and what restores it?",5)+
+QB("e3","What is the one boundary that best protects my energy and why do I keep breaking it?",5)+
+QB("e4","What does my ideal productive morning look like from the moment I wake up to sitting down to work?",5)+'</div></div>';
+
+var m="";for(var i=1;i<=5;i++)m+='<div'+(i==5?' class="w"':'')+'>'+L("Month 0"+i)+T("m"+i,3,0)+'</div>';
+document.getElementById("p-obsessions").innerHTML='<div class="book"><div class="leaf"><h2 class="cap">My <i>obsessions</i></h2><p class="sub">What goals are you committed to building over the next 5 months? Every daily win, weekly review and monthly spread in this journal exists to move you closer to what you write on this page. Come back here whenever you need to remember why you are doing the work.</p>'+
+Q("o1","My primary obsession, the main goal I am building toward","Write it as a present tense statement: what you are building and who you are becoming.",5)+
+Q("o2","What else I’m building and promises to myself","",5)+
+'<h3>Monthly milestones</h3><p class="sub">Break your primary obsession into five steps.</p><div class="mile">'+m+'</div></div></div>';
+
+var pr="";for(var j=1;j<=6;j++)pr+='<div class="proof"><span class="n">'+j+'</span><div>'+I("pf"+j,0,"")+T("pfn"+j,2,0)+'</div></div>';
+document.getElementById("p-proof").innerHTML='<div class="book"><div class="leaf"><h2>Portfolio of proof</h2><p class="sub">Draw from the left column of your weekly reviews. Find the moments that proved what you are capable of. Every hard task, uncomfortable action, or promise that you’ve kept to yourself becomes evidence.</p>'+pr+'</div></div>';
+
+function fill(){
+ var els=document.querySelectorAll("[data-k]");
+ for(var i=0;i<els.length;i++){var e=els[i],k=kf(e),v=data[k];
+  if(e.type==="checkbox")e.checked=!!v;else e.value=v||(e.dataset.k==="d1.date"?st():"");}
+ grow();
+}
+function grow(){
+ var t=document.querySelectorAll("textarea");
+ for(var i=0;i<t.length;i++){var e=t[i];if(!e.offsetParent)continue;e.style.height="auto";var r=Math.max(+e.getAttribute("rows")||1,Math.ceil(e.scrollHeight/32));e.style.height=(r*32)+"px"}
+}
+var tm;
+document.addEventListener("input",function(ev){
+ var e=ev.target;if(!e.dataset||!e.dataset.k)return;
+ var k=kf(e);if(!data._start)data._start=today;
+ data[k]=e.type==="checkbox"?e.checked:e.value;persist();if(e.dataset.k==="d1.date"&&e.value){data._start=e.value;persist();refresh()}else remind();
+ if(e.tagName==="TEXTAREA"){e.style.height="auto";e.style.height=Math.max(+e.getAttribute("rows")*32,Math.ceil(e.scrollHeight/32)*32)+"px"}
+ var s=document.getElementById("saved");s.classList.add("show");clearTimeout(tm);tm=setTimeout(function(){s.classList.remove("show")},900);
+});
+function setDay(d){
+ cur=d;document.getElementById("dt").value=d;
+ var a=new Date(st()+"T12:00:00"),b=new Date(d+"T12:00:00"),n=Math.round((b-a)/864e5)+1;
+ document.getElementById("dayn").textContent=n>0?"Day "+(n<100?"0":"")+(n<10?"0":"")+n:"Before day one";
+ fill();
+}
+function shift(n){var d=new Date(cur+"T12:00:00");d.setDate(d.getDate()+n);setDay(iso(d))}
+document.getElementById("prev").onclick=function(){shift(-1)};
+document.getElementById("next").onclick=function(){shift(1)};
+document.getElementById("dt").onchange=function(){if(this.value)setDay(this.value)};
+
+var wk=1,mo=1;
+function kf(e){return e.hasAttribute("data-m")?"mo"+mo+"."+e.dataset.k:e.hasAttribute("data-w")?"wk"+wk+"."+e.dataset.k:(e.hasAttribute("data-d")?cur+".":"")+e.dataset.k}
+var TW=function(k,r){return T(k,r,0).replace("<textarea ","<textarea data-w ")};
+var WB=function(t,s,k,r){return '<div class="box"><h3 style="margin-top:8px">'+t+'</h3><p class="sub">'+s+'</p>'+TW(k,r)+'</div>'};
+document.getElementById("p-weekly").innerHTML='<div class="book two"><div class="leaf"><h2>The weekly review</h2>'+
+'<div class="top"><button id="wprev" aria-label="Previous week">‹</button><span class="day" id="wlab"></span><button id="wnext" aria-label="Next week">›</button><span class="day">Date</span><input type="date" data-k="date" data-w aria-label="Review date"></div>'+
+WB("What moved me forward","The actions and decisions that moved me closer to my obsessions this week.","fwd",8)+
+WB("What didn’t work and why","Which patterns repeated, and what caused it.","nope",8)+
+'</div><div class="leaf">'+
+WB("Recovery audit","Did I make the investments I committed to in my rest, body and boundaries? Where did I fall short or run depleted?","rec",6)+
+WB("Before next week begins","What is my most important output next week?","out",5)+
+WB("The rule","The one rule I will hold myself to next week.","rule",3)+
+WB("What I’ll improve","One change to carry into next week.","imp",4)+'</div></div>';
+function setWk(n){wk=Math.max(1,n);var a=(wk-1)*7+1;document.getElementById("wlab").textContent="Week "+(wk<10?"0":"")+wk+" • Days "+a+"–"+(a+6);fill()}
+document.getElementById("wprev").onclick=function(){setWk(wk-1)};
+document.getElementById("wnext").onclick=function(){setWk(wk+1)};
+var TM=function(k,r){return T(k,r,0).replace("<textarea ","<textarea data-m ")};
+var MB=function(t,s,k,r){return '<div class="box"><h3 style="margin-top:8px">'+t+'</h3><p class="sub">'+s+'</p>'+TM(k,r)+'</div>'};
+var pm="";for(var q=1;q<=3;q++)pm+='<div class="proof"><span class="n">'+q+'</span><div>'+I("pf"+q,0,"").replace("<input ","<input data-m ")+TM("pfn"+q,2)+'</div></div>';
+document.getElementById("p-monthly").innerHTML='<div class="book two"><div class="leaf"><h2>Monthly identity</h2>'+
+'<div class="top"><button id="mprev" aria-label="Previous month">‹</button><span class="day" id="mlab"></span><button id="mnext" aria-label="Next month">›</button><span class="day">Date</span><input type="date" data-k="date" data-m aria-label="Review date"></div>'+
+MB("The honest story of who I was this month","What did I learn about myself this month? Write it in the third person.","story",7)+
+'<h3>Portfolio of proof</h3><p class="sub">Draw from the left column of your weekly reviews. Find the moments that proved what you are capable of.</p>'+pm+'</div><div class="leaf">'+
+MB("Closing the gap","How close am I to my 5 month obsession compared to where I started, and what is the one thing that would close the gap fastest next month?","gap",7)+
+MB("Where I settled this month","Where did I shrink or settle this month in my ambition, standards or self-belief? What structural change would next month require?","settle",6)+
+MB("My promise for next month","Write it in present tense, as if it is already done. What is non-negotiable about me next month?","promise",5)+'</div></div>';
+function setMo(n){mo=Math.min(5,Math.max(1,n));document.getElementById("mlab").textContent="Month 0"+mo+" of 05";fill()}
+document.getElementById("mprev").onclick=function(){setMo(mo-1)};
+document.getElementById("mnext").onclick=function(){setMo(mo+1)};
+document.getElementById("p-dayone").innerHTML='<div class="book"><div class="leaf"><h2 class="cap">Day <i>one</i></h2><p class="sub" style="text-align:center">Your starting point. Write honestly about where you are before this journal changes anything. Come back and read this on day 150: the difference is your proof of transformation.</p><div class="top"><span class="day">Today’s date</span><input type="date" data-k="d1.date" aria-label="Date"></div>'+
+Q("d1a","Where am I in my life right now?","",9)+
+Q("d1b","Where do I hope to be when I read this back, once I finish this journal on day 150?","",9)+'</div></div>';
+document.getElementById("p-howto").innerHTML='<div class="book two howto"><div class="leaf"><h2 class="cap">How to use for <i>best results</i></h2>'+
+'<h3>The weekly spread, every Sunday</h3><p>Use short bullet points in both columns, and read across the whole week for patterns instead of judging single days. The left column is what moved your goals forward. The right is what didn’t work and why. Be honest about whether it was a good week or a hard one, so you adjust the plan instead of repeating the same cycle.</p>'+
+'<div class="eg">Moved me forward: “Finished the video edit I’d put off for three days. Sent the proposal.”<br>Didn’t work: “Checked email before deep work. I reach for admin when the real task makes me anxious.”</div>'+
+'<h3>The monthly spread, end of each month</h3><p>Write in the third person, “she” instead of “I”. The distance lets you be honest without self-judgement. Pull your Portfolio of proof entries from the left column of your four weekly reviews, and write about who you showed yourself to be, not only what got done.</p>'+
+'<div class="eg">Story: “She started strong, slipped back into old habits in week three, then returned on day 22 and finished what she began.”<br>Proof: “Sent the pitch she’d been circling for a month.”</div></div>'+
+'<div class="leaf"><h3 style="margin-top:0">Three rules for five months</h3><ol><li>Do the journal before anything else each morning, before email and messages. The clarity sets the tone for your day and your first win.</li><li>Write honestly. The answer you least want to write is usually the one that changes things. Specific, truthful answers are worth far more than vague ones.</li><li>If you miss a day, come back the next morning. The journal doesn’t reset and neither does your progress.</li></ol>'+
+'<h3>Where to start</h3><ol><li>Fill in your energy profile and your obsessions, once.</li><li>Write Day one.</li><li>Open Daily each morning, Weekly review on Sundays, and Monthly identity at month’s end.</li></ol></div></div>';
+function remind(){
+ var el=document.getElementById("remind"),items=[];
+ if(data._start){
+  var n=Math.round((new Date(today+"T12:00:00")-new Date(st()+"T12:00:00"))/864e5)+1,full=Math.floor(n/7);
+  if(new Date().getDay()===0)full=Math.ceil(n/7);
+  for(var w=1;w<=full;w++)if(!data["wk"+w+".fwd"]&&!data["wk"+w+".nope"])items.push({t:"Week "+w+" review is waiting",h:"weekly",f:w});
+  var ms=Math.min(5,Math.floor(n/30));
+  for(var m=1;m<=ms;m++)if(!data["mo"+m+".story"])items.push({t:"Month "+m+" review is waiting",h:"monthly",f:m,mo:1});
+ }
+ el.innerHTML=items.slice(0,3).map(function(i){return '<button data-h="'+i.h+'" data-f="'+i.f+'"'+(i.mo?' data-mo="1"':'')+'>'+i.t+'</button>'}).join("");
+ el.hidden=!items.length;
+}
+document.getElementById("remind").onclick=function(ev){var b=ev.target.closest("button");if(!b)return;var f=+b.dataset.f;if(b.dataset.mo)setMo(f);else setWk(f);location.hash=b.dataset.h};
+function refresh(){
+ var n=Math.max(1,Math.round((new Date(today+"T12:00:00")-new Date(st()+"T12:00:00"))/864e5)+1);
+ document.getElementById("prog").textContent="Day "+(n<10?"00":n<100?"0":"")+n+" of 150";
+ document.getElementById("barf").style.width=Math.min(100,n/150*100)+"%";
+ setWk(Math.ceil(n/7));setMo(Math.min(5,Math.ceil(n/30)));remind();
+}
+var pages=["howto","energy","obsessions","dayone","daily","weekly","monthly","proof"];
+function route(){
+ var h=(location.hash||"#daily").slice(1);if(pages.indexOf(h)<0)h="daily";
+ pages.forEach(function(p){document.getElementById("p-"+p).classList.toggle("on",p===h)});
+ var a=document.querySelectorAll("#nav a");
+ for(var i=0;i<a.length;i++){if(a[i].getAttribute("href")==="#"+h)a[i].setAttribute("aria-current","page");else a[i].removeAttribute("aria-current")}
+ grow();
+}
+window.addEventListener("hashchange",function(){route();remind()});
+window.addEventListener("resize",grow);
+setDay(today);refresh();route();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(grow);
+})();
+</script>
+</body>
+</html>
